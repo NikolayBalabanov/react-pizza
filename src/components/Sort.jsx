@@ -1,6 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function Sort() {
+  const sortValues = ['популярности', 'цене', 'алфавиту'];
+  const [isShow, setIsShow] = useState(false);
+  const [sortValue, setSortValue] = useState(sortValues[0]);
+
+  const handleClick = (value) => {
+    setSortValue(value);
+    setIsShow(false);
+  };
   return (
     <div className="sort">
       <div className="sort__label">
@@ -17,15 +25,23 @@ function Sort() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span>популярности</span>
+        <span onClick={() => setIsShow(!isShow)}>{sortValue}</span>
       </div>
-      <div className="sort__popup">
-        <ul>
-          <li className="active">популярности</li>
-          <li>цене</li>
-          <li>алфавиту</li>
-        </ul>
-      </div>
+      {isShow && (
+        <div className="sort__popup">
+          <ul>
+            {sortValues.map((val) => (
+              <li
+                key={val}
+                onClick={() => handleClick(val)}
+                className={val === sortValue ? 'active' : ''}
+              >
+                {val}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
