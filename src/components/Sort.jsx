@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 
-function Sort() {
-  const sortValues = ['популярности', 'цене', 'алфавиту'];
+function Sort({ value, onChangeSort }) {
+  const sortValues = [
+    { name: 'популярности (DESC)', sortProperty: 'rating' },
+    { name: 'популярности (ASC)', sortProperty: 'rating' },
+    { name: 'цене (DESC)', sortProperty: 'price' },
+    { name: 'цене (ASC)', sortProperty: 'price' },
+    { name: 'алфавиту (DESC)', sortProperty: 'title' },
+    { name: 'алфавиту (ASC)', sortProperty: 'title' },
+  ];
   const [isShow, setIsShow] = useState(false);
-  const [sortValue, setSortValue] = useState(sortValues[0]);
 
   const handleClick = (value) => {
-    setSortValue(value);
+    onChangeSort(value);
     setIsShow(false);
   };
   return (
@@ -25,18 +31,18 @@ function Sort() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setIsShow(!isShow)}>{sortValue}</span>
+        <span onClick={() => setIsShow(!isShow)}>{value.name}</span>
       </div>
       {isShow && (
         <div className="sort__popup">
           <ul>
-            {sortValues.map((val) => (
+            {sortValues.map((obj) => (
               <li
-                key={val}
-                onClick={() => handleClick(val)}
-                className={val === sortValue ? 'active' : ''}
+                key={obj.name}
+                onClick={() => handleClick(obj)}
+                className={obj.name === value.name ? 'active' : ''}
               >
-                {val}
+                {obj.name}
               </li>
             ))}
           </ul>
