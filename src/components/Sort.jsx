@@ -1,20 +1,26 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSortType } from '../redux/slices/filterSlice';
 
-function Sort({ value, onChangeSort }) {
-  const sortValues = [
-    { name: 'популярности (DESC)', sortProperty: 'rating' },
-    { name: 'популярности (ASC)', sortProperty: 'rating' },
-    { name: 'цене (DESC)', sortProperty: 'price' },
-    { name: 'цене (ASC)', sortProperty: 'price' },
-    { name: 'алфавиту (DESC)', sortProperty: 'title' },
-    { name: 'алфавиту (ASC)', sortProperty: 'title' },
-  ];
+const sortValues = [
+  { name: 'популярности (DESC)', sortProperty: 'rating' },
+  { name: 'популярности (ASC)', sortProperty: 'rating' },
+  { name: 'цене (DESC)', sortProperty: 'price' },
+  { name: 'цене (ASC)', sortProperty: 'price' },
+  { name: 'алфавиту (DESC)', sortProperty: 'title' },
+  { name: 'алфавиту (ASC)', sortProperty: 'title' },
+];
+
+function Sort() {
+  const dispatch = useDispatch();
+  const sortType = useSelector((state) => state.filterReducer.sortType);
   const [isShow, setIsShow] = useState(false);
 
   const handleClick = (value) => {
-    onChangeSort(value);
+    dispatch(setSortType(value));
     setIsShow(false);
   };
+
   return (
     <div className="sort">
       <div className="sort__label">
@@ -31,7 +37,7 @@ function Sort({ value, onChangeSort }) {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setIsShow(!isShow)}>{value.name}</span>
+        <span onClick={() => setIsShow(!isShow)}>{sortType.name}</span>
       </div>
       {isShow && (
         <div className="sort__popup">
@@ -40,7 +46,7 @@ function Sort({ value, onChangeSort }) {
               <li
                 key={obj.name}
                 onClick={() => handleClick(obj)}
-                className={obj.name === value.name ? 'active' : ''}
+                className={obj.name === sortType.name ? 'active' : ''}
               >
                 {obj.name}
               </li>
