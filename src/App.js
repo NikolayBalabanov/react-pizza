@@ -8,14 +8,15 @@ import Cart from './pages/Cart';
 
 function App() {
   // https://640dd7041a18a5db8380ebec.mockapi.io/items
+  const [searchVal, setSearchVal] = React.useState('');
 
   return (
     <div className="App">
       <div className="wrapper">
-        <Header />
+        <Header value={searchVal} setSearchVal={setSearchVal} />
         <div className="content">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home searchValue={searchVal} />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -1,0 +1,37 @@
+.wrapper {
+  position: relative;
+}
+
+.input {
+  padding: 12px 20px 12px 40px;
+  width: 300px;
+  font-size: 16px;
+  border: 1px solid rgba($color: #000000, $alpha: 0.1);
+  border-radius: 8px;
+
+  &:focus-visible {
+    border: 1px solid rgba($color: #000000, $alpha: 0.4);
+  }
+}
+
+.icon,
+.clear {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  opacity: 0.5;
+  width: 24px;
+  height: 24px;
+  transform: translateY(-50%);
+}
+
+.clear {
+  left: auto;
+  right: 12px;
+  transition: opacity 0.3s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
