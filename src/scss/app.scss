@@ -95,6 +95,8 @@ body {
     align-items: center;
     cursor: pointer;
     @include noselect();
+    background-color: transparent;
+    border: transparent;
 
     span {
       display: inline-block;
@@ -293,17 +295,22 @@ body {
   }
 
   &--empty {
-    margin: 0 auto;
-    width: 560px;
+    margin: 50px auto;
+    width: 60%;
     text-align: center;
 
+    @media (max-width: 768px) {
+      width: 90%;
+    }
+
     h2 {
-      font-size: 32px;
+      font-size: 36px;
+      font-weight: 700;
       margin-bottom: 10px;
     }
 
     p {
-      font-size: 18px;
+      font-size: 20px;
       line-height: 145.4%;
       letter-spacing: 0.01em;
       color: #777777;
@@ -316,8 +323,12 @@ body {
 
     img {
       display: block;
-      width: 300px;
+      max-width: 300px;
       margin: 45px auto 60px;
+
+      @media (max-width: 768px) {
+        max-width: 220px;
+      }
     }
 
     .button--black {
