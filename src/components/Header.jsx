@@ -5,7 +5,7 @@ import Search from './Search';
 import logo from '../assets/img/pizza-logo.svg';
 
 function Header() {
-  const { items, totalPrice, cartCnt } = useSelector((state) => state.cartReducer);
+  const { totalPrice, cartCnt } = useSelector((state) => state.cartReducer);
   return (
     <div className="header">
       <div className="container">
