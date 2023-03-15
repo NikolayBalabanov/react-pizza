@@ -51,6 +51,5 @@
   },
   "devDependencies": {
     "@types/lodash.debounce": "^4.0.7"
-  },
-  "homepage": "https://NikolayBalabanov.github.io/react-pizza"
+  }
 }
