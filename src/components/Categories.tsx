@@ -1,7 +1,13 @@
-import React from 'react';
+import { memo } from 'react';
 
-function Categories({ value, onChangeCategory }) {
-  const categories = ['Все', 'Мясные', 'Вегетарианские', 'Гриль', 'Острые', 'Закрытые'];
+interface ICategoriesProps {
+  value: number;
+  onChangeCategory: (e: number) => void;
+}
+
+const categories = ['Все', 'Мясные', 'Вегетарианские', 'Гриль', 'Острые', 'Закрытые'];
+
+const Categories = memo(function Categories({ value, onChangeCategory }: ICategoriesProps) {
   return (
     <div className="categories">
       <ul>
@@ -17,6 +23,6 @@ function Categories({ value, onChangeCategory }) {
       </ul>
     </div>
   );
-}
+});
 
 export default Categories;

@@ -4,10 +4,10 @@ import emptyCartImg from '../assets/img/empty-cart.png';
 
 function CartEmpty() {
   return (
-    <div class="container container--cart">
-      <div class="cart cart--empty">
+    <div className="container container--cart">
+      <div className="cart cart--empty">
         <h2>
-          Корзина пустая <icon>😕</icon>
+          Корзина пустая <span>😕</span>
         </h2>
         <p>
           Вероятней всего, вы не заказывали ещё пиццу.
@@ -15,7 +15,7 @@ function CartEmpty() {
           Для того, чтобы заказать пиццу, перейди на главную страницу.
         </p>
         <img src={emptyCartImg} alt="Empty cart" />
-        <Link to="/" class="button button--black">
+        <Link to="/" className="button button--black">
           <span>Вернуться назад</span>
         </Link>
       </div>

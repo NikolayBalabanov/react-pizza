@@ -1,7 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IPizzaItem, IPizzasState } from '../../models/pizza';
 import getPizzas from '../ac/pizzas.ac';
 
-const initialState = {
+const initialState: IPizzasState = {
   items: [],
   isLoading: true,
   error: '',
@@ -16,19 +17,16 @@ const pizzasSlice = createSlice({
     },
   },
   extraReducers: {
-    [getPizzas.fulfilled]: (state, action) => {
-      console.log(action.payload);
+    [getPizzas.fulfilled.type]: (state, action: PayloadAction<IPizzaItem[]>) => {
       state.isLoading = false;
       state.items = action.payload;
       state.error = '';
     },
-    [getPizzas.pending]: (state) => {
+    [getPizzas.pending.type]: (state) => {
       state.isLoading = true;
     },
-    [getPizzas.rejected]: (state, action) => {
-      console.log(action.payload);
+    [getPizzas.rejected.type]: (state) => {
       state.isLoading = false;
-      console.log('payload error', action.payload);
       state.error = 'ошибка при загрузке пицц';
       state.items = [];
     },

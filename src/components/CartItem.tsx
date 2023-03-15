@@ -1,9 +1,9 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../hooks/redux';
+import { ICartItem } from '../models/cart';
 import { addItem, removeItem, subtractItem } from '../redux/slices/cartSlice';
 
-function CartItem({ id, title, type, size, price, count, imageUrl }) {
-  const dispatch = useDispatch();
+function CartItem({ id, title, type, size, price, count, imageUrl }: ICartItem) {
+  const dispatch = useAppDispatch();
   const item = {
     id,
     title,
@@ -11,6 +11,7 @@ function CartItem({ id, title, type, size, price, count, imageUrl }) {
     imageUrl,
     type,
     size,
+    count,
   };
 
   const onAddItem = () => dispatch(addItem(item));

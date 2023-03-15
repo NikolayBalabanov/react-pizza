@@ -1,16 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
-
-const initialState = {
-  totalPrice: 0,
-  cartCnt: 0,
-  items: [],
-};
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ICartItem, INewCartItem } from '../../models/cart';
+import { getCartCnt, getInitialStateFromLS, getTotalPrice } from '../../utils/getCartFromLS';
 
 export const cartSlice = createSlice({
   name: 'cart',
-  initialState,
+  initialState: getInitialStateFromLS(),
   reducers: {
-    addItem(state, action) {
+    addItem(state, action: PayloadAction<INewCartItem>) {
       const newItem = action.payload;
       const targetItem = state.items.find((obj) => {
         return obj.id === newItem.id && obj.size === newItem.size && obj.type === newItem.type;
@@ -20,10 +16,10 @@ export const cartSlice = createSlice({
       } else {
         state.items.push({ ...newItem, count: 1 });
       }
-      state.totalPrice = state.items.reduce((acc, cur) => acc + cur.price * cur.count, 0);
-      state.cartCnt = state.items.reduce((acc, cur) => acc + cur.count, 0);
+      state.totalPrice = getTotalPrice(state.items);
+      state.cartCnt = getCartCnt(state.items);
     },
-    subtractItem(state, action) {
+    subtractItem(state, action: PayloadAction<ICartItem>) {
       const removedItem = action.payload;
       const targetItem = state.items.find(
         (obj) =>
@@ -42,11 +38,11 @@ export const cartSlice = createSlice({
               obj.type !== removedItem.type,
           );
         }
-        state.totalPrice = state.items.reduce((acc, cur) => acc + cur.price * cur.count, 0);
-        state.cartCnt = state.items.reduce((acc, cur) => acc + cur.count, 0);
+        state.totalPrice = getTotalPrice(state.items);
+        state.cartCnt = getCartCnt(state.items);
       }
     },
-    removeItem(state, action) {
+    removeItem(state, action: PayloadAction<ICartItem>) {
       const removedItem = action.payload;
       const targetItem = state.items.find(
         (obj) =>
@@ -61,8 +57,8 @@ export const cartSlice = createSlice({
             obj.size !== removedItem.size ||
             obj.type !== removedItem.type,
         );
-        state.totalPrice = state.items.reduce((acc, cur) => acc + cur.price * cur.count, 0);
-        state.cartCnt = state.items.reduce((acc, cur) => acc + cur.count, 0);
+        state.totalPrice = getTotalPrice(state.items);
+        state.cartCnt = getCartCnt(state.items);
       }
     },
     clearItems(state) {

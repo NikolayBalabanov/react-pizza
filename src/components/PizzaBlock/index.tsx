@@ -1,15 +1,26 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { addItem } from '../../redux/slices/cartSlice';
 
 export const pizzaTypes = ['тонкое', 'традиционное'];
 
-function PizzaBlock({ id, title, price, imageUrl, types, sizes, category, rating }) {
-  const dispatch = useDispatch();
-  const [activeType, setActiveType] = useState(types[0]);
-  const [activeSize, setActiveSize] = useState(0);
-  const cartItemData = useSelector((state) =>
+export interface IPizzaBlock {
+  id: string;
+  title: string;
+  price: number;
+  imageUrl: string;
+  types: number[];
+  sizes: number[];
+  category: string;
+  rating: number;
+}
+
+function PizzaBlock({ id, title, price, imageUrl, types, sizes, category, rating }: IPizzaBlock) {
+  const dispatch = useAppDispatch();
+  const [activeType, setActiveType] = useState<number>(types[0]);
+  const [activeSize, setActiveSize] = useState<number>(0);
+  const cartItemData = useAppSelector((state) =>
     state.cartReducer.items.find(
       (obj) =>
         obj.id === id && obj.size === sizes[activeSize] && obj.type === pizzaTypes[activeType],

@@ -1,25 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import Categories from '../components/Categories';
 import PizzaBlock from '../components/PizzaBlock';
 import PizzaLoader from '../components/PizzaBlock/Skeleton';
 import Sort, { sortValues } from '../components/Sort';
 import Pagination from '../components/Pagination';
-import { useDispatch, useSelector } from 'react-redux';
 import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 import getPizzas from '../redux/ac/pizzas.ac';
+import { useAppDispatch, useAppSelector } from '../hooks/redux';
 
 function Home() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const isSearch = useRef(false);
   const isMounted = useRef(false);
-  const { categoryId, sortType, currentPage, searchValue } = useSelector(
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { items, error, isLoading } = useAppSelector((state) => state.pizzasReducer);
+  const { categoryId, sortType, currentPage, searchValue } = useAppSelector(
     (state) => state.filterReducer,
   );
-  const { items, error, isLoading } = useSelector((state) => state.pizzasReducer);
 
   const fetchPizzas = async () => {
     const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc';
@@ -41,12 +41,17 @@ function Home() {
     if (window.location.search) {
       const params = qs.parse(window.location.search.slice(1));
       const sortType = sortValues.find((obj) => obj.sortProperty === params.sortProperty);
-      dispatch(
-        setFilters({
-          ...params,
-          sortType,
-        }),
-      );
+      if (sortType) {
+        dispatch(
+          setFilters({
+            categoryId: 0,
+            currentPage: 0,
+            searchValue: '',
+            ...params,
+            sortType,
+          }),
+        );
+      }
       isSearch.current = true;
     }
   }, []);
@@ -87,13 +92,13 @@ function Home() {
     />
   ));
 
-  const onChangePage = (page) => {
+  const onChangePage = (page: number) => {
     dispatch(setCurrentPage(page));
   };
 
-  const onChangeCategory = (id) => {
+  const onChangeCategory = useCallback((id: number) => {
     dispatch(setCategoryId(id));
-  };
+  }, []);
 
   return (
     <div className="container">

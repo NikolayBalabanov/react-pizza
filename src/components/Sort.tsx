@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState, useEffect, useRef, memo } from 'react';
+import { useAppDispatch, useAppSelector } from '../hooks/redux';
+import { ISortValue } from '../models/sortValue';
 import { setSortType } from '../redux/slices/filterSlice';
 
-export const sortValues = [
+export const sortValues: ISortValue[] = [
   { name: 'популярности (DESC)', sortProperty: 'rating' },
   { name: 'популярности (ASC)', sortProperty: '-rating' },
   { name: 'цене (DESC)', sortProperty: 'price' },
@@ -11,15 +12,15 @@ export const sortValues = [
   { name: 'алфавиту (ASC)', sortProperty: '-title' },
 ];
 
-function Sort() {
-  const dispatch = useDispatch();
-  const sortType = useSelector((state) => state.filterReducer.sortType);
+const Sort = memo(function Sort() {
+  const dispatch = useAppDispatch();
+  const sortType = useAppSelector((state) => state.filterReducer.sortType);
   const [isShow, setIsShow] = useState(false);
-  const sortRef = useRef(null);
+  const sortRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const handleSortOutside = (event) => {
-      if (!event.composedPath().includes(sortRef.current)) {
+    const handleSortOutside = (event: MouseEvent) => {
+      if (sortRef.current && !event.composedPath().includes(sortRef.current)) {
         setIsShow(false);
       }
     };
@@ -27,7 +28,7 @@ function Sort() {
     return () => document.body.removeEventListener('click', handleSortOutside);
   }, []);
 
-  const handleClick = (value) => {
+  const handleClick = (value: ISortValue) => {
     dispatch(setSortType(value));
     setIsShow(false);
   };
@@ -67,6 +68,6 @@ function Sort() {
       )}
     </div>
   );
-}
+});
 
 export default Sort;
