@@ -2,6 +2,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import Loader from '../components/Loader';
 
 interface IPizzaData {
   title: string;
@@ -30,11 +31,7 @@ function Pizza() {
   }, []);
 
   if (!pizza) {
-    return (
-      <div className="container">
-        <h1>Загрузка...</h1>
-      </div>
-    );
+    return <Loader />;
   }
 
   return (
@@ -47,8 +44,8 @@ function Pizza() {
         sapiente inventore sit accusamus autem iste est magni quas eveniet iusto magnam ut
         asperiores adipisci?
       </p>
-      <h4>{pizza.price} ₽</h4>
-      <Link to="/" className="button button--outline button--add">
+      <h4 className="pizza__title">{pizza.price} ₽</h4>
+      <Link to="/" className="button button--outline button--add pizza__back-btn">
         <svg
           width="8"
           height="14"

@@ -2,20 +2,25 @@
 
 .header {
   border-bottom: 1px solid $gray-line;
-  padding: 40px 0;
+  padding: 30px 0;
 
   @media (max-width: 1000px) {
     padding: 20px 0;
-
-    .header__cart {
-      margin-top: 20px;
-    }
   }
 
   .container {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @media (max-width: 960px) {
+      flex-wrap: wrap;
+
+      input {
+        display: block;
+        order: 2;
+      }
+    }
 
     @media (max-width: 645px) {
       flex-direction: column;
