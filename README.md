@@ -1,5 +1,7 @@
-React-pizza course.
-Stack:
+[Deploy link](https://nikola-pizza.netlify.app/)
+## React-pizza course.
+
+##Stack:
 - ReactJS 18
 - TypeScript
 - Redux Toolkit
