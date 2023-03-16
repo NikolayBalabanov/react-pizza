@@ -97,6 +97,7 @@ function Home() {
   };
 
   const onChangeCategory = useCallback((id: number) => {
+    dispatch(setCurrentPage(1));
     dispatch(setCategoryId(id));
   }, []);
 
@@ -115,6 +116,7 @@ function Home() {
       ) : (
         <div className="content__items">{isLoading ? skeletons : pizzas}</div>
       )}
+
       <Pagination value={currentPage} onChangePage={onChangePage} />
     </div>
   );
