@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { useAppDispatch } from '../hooks/redux';
 import { ICartItem } from '../models/cart';
 import { addItem, removeItem, subtractItem } from '../redux/slices/cartSlice';
+import Confirm from './Confirm';
 
 function CartItem({ id, title, type, size, price, count, imageUrl }: ICartItem) {
   const dispatch = useAppDispatch();
@@ -13,14 +15,16 @@ function CartItem({ id, title, type, size, price, count, imageUrl }: ICartItem) 
     size,
     count,
   };
+  const [isModal, setIsModal] = useState<boolean>(false);
 
   const onAddItem = () => dispatch(addItem(item));
   const onSubtractItem = () => dispatch(subtractItem(item));
-  const onRemoveItem = () => {
-    if (window.confirm('Удалить товар?')) {
-      dispatch(removeItem(item));
-    }
+  const handleConfirm = () => {
+    setIsModal(false);
+    dispatch(removeItem(item));
   };
+
+  const handleClose = () => setIsModal(false);
 
   return (
     <div className="cart__item">
@@ -92,7 +96,7 @@ function CartItem({ id, title, type, size, price, count, imageUrl }: ICartItem) 
         </div>
         <div className="cart__item-remove">
           <button
-            onClick={onRemoveItem}
+            onClick={() => setIsModal(true)}
             type="button"
             className="button button--outline button--circle"
           >
@@ -115,6 +119,7 @@ function CartItem({ id, title, type, size, price, count, imageUrl }: ICartItem) 
           </button>
         </div>
       </div>
+      {isModal && <Confirm name="" onClose={handleClose} onConfirm={handleConfirm} title={title} />}
     </div>
   );
 }

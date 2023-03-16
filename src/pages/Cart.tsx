@@ -1,18 +1,22 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import CartEmpty from '../components/CartEmpty';
 import CartItem from '../components/CartItem';
+import Confirm from '../components/Confirm';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { clearItems } from '../redux/slices/cartSlice';
 
 function Cart() {
   const dispatch = useAppDispatch();
   const { items, totalPrice, cartCnt } = useAppSelector((state) => state.cartReducer);
+  const [isModal, setIsModal] = useState<boolean>(false);
 
-  const onClearItems = () => {
-    if (window.confirm('Отчистить карзину?')) {
-      dispatch(clearItems());
-    }
+  const handleConfirm = () => {
+    setIsModal(false);
+    dispatch(clearItems());
   };
+
+  const handleClose = () => setIsModal(false);
 
   if (!cartCnt) {
     return <CartEmpty />;
@@ -54,7 +58,7 @@ function Cart() {
             </svg>
             Корзина
           </h2>
-          <button type="button" onClick={onClearItems} className="cart__clear">
+          <button type="button" onClick={() => setIsModal(true)} className="cart__clear">
             <svg
               width="20"
               height="20"
@@ -94,6 +98,7 @@ function Cart() {
 
             <span>Очистить корзину</span>
           </button>
+          {isModal && <Confirm name="basket" onClose={handleClose} onConfirm={handleConfirm} />}
         </div>
         <div className="content__items">
           {items.map((item) => (

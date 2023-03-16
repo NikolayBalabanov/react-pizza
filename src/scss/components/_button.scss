@@ -24,7 +24,8 @@
     transition: all $duration ease-in-out;
   }
 
-  &:hover {
+  &:hover,
+  &:focus-visible {
     background-color: darken($orange, 8%);
   }
 
@@ -48,6 +49,7 @@
     background-color: $black;
 
     &:hover,
+    &:focus-visible,
     &:active {
       background-color: lighten($color: $black, $amount: 10);
     }
@@ -67,7 +69,8 @@
       }
     }
 
-    &:hover {
+    &:hover,
+    &:focus-visible {
       background-color: $orange;
 
       &,
@@ -82,7 +85,8 @@
       }
     }
 
-    &:active {
+    &:active,
+    &:focus-visible {
       background-color: darken($orange, 8%);
     }
   }
@@ -108,7 +112,8 @@
       font-size: 16px;
     }
 
-    &:hover {
+    &:hover,
+    &:focus-visible {
       i {
         background-color: #fff;
         color: $orange;

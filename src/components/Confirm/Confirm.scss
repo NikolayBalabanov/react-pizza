@@ -1,0 +1,60 @@
+.modal {
+  position: fixed;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+  inset: 0;
+  background-color: rgba($color: #000000, $alpha: 0.4);
+  transition: opacity 0.3s ease-in-out;
+
+  &__content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 40%;
+    height: 200px;
+    padding: 12px 24px;
+    background-color: white;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+
+    @media (max-width: 900px) {
+      width: 80%;
+      height: 200px;
+    }
+
+    @media (max-width: 599px) {
+      width: 90%;
+      height: auto;
+    }
+  }
+
+  &__title {
+    align-self: flex-start;
+    margin-bottom: 20px;
+    font-size: 32px;
+    line-height: 100%;
+  }
+
+  &__controllers {
+    align-self: flex-end;
+    display: flex;
+    padding: 12px 0;
+
+    button:first-child {
+      margin-right: 15px;
+    }
+  }
+}
+
+.hide-modal {
+  opacity: 0;
+}
+
+.hide-content {
+  transform: translateY(-40px);
+}

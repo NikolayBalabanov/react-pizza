@@ -149,7 +149,8 @@ body {
       transition: all $duration ease-in-out;
     }
 
-    &:hover {
+    &:hover,
+    &:focus-visible {
       svg {
         path {
           stroke: darken($color: #b6b6b6, $amount: 50);
@@ -281,6 +282,7 @@ body {
           position: relative;
         }
         &:hover,
+        &:focus-visible,
         &:active {
           border-color: darken($color: $gray-line, $amount: 80);
           background-color: darken($color: $gray-line, $amount: 80);
@@ -320,48 +322,6 @@ body {
 
       @media (max-width: 450px) {
         flex-direction: column;
-      }
-
-      .go-back-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 210px;
-
-        @media (max-width: 700px) {
-          width: auto;
-          padding: 10px 16px;
-        }
-
-        @media (max-width: 450px) {
-          margin-top: 20px;
-          order: 2;
-        }
-
-        border-color: darken($color: $gray-line, $amount: 10);
-
-        span {
-          color: darken($color: $gray-line, $amount: 20);
-          font-weight: 500;
-          font-weight: 600;
-        }
-
-        &:hover {
-          background-color: darken($color: $gray-line, $amount: 90);
-          border-color: darken($color: $gray-line, $amount: 90);
-
-          span {
-            color: $gray-line;
-          }
-        }
-
-        svg {
-          margin-right: 12px;
-          path {
-            fill: transparent;
-            stroke-width: 2;
-          }
-        }
       }
 
       .pay-btn {
@@ -422,6 +382,49 @@ body {
       margin: 0 auto;
       font-weight: 600;
       font-size: 18px;
+    }
+  }
+}
+
+.go-back-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: darken($color: $gray-line, $amount: 20);
+
+  @media (max-width: 700px) {
+    width: auto;
+    padding: 10px 16px;
+  }
+
+  @media (max-width: 450px) {
+    margin-top: 20px;
+    order: 2;
+  }
+
+  border-color: darken($color: $gray-line, $amount: 10);
+
+  span {
+    color: darken($color: $gray-line, $amount: 20);
+    font-weight: 500;
+    font-weight: 600;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background-color: darken($color: $gray-line, $amount: 90);
+    border-color: darken($color: $gray-line, $amount: 90);
+
+    span {
+      color: $gray-line;
+    }
+  }
+
+  svg {
+    margin-right: 12px;
+    path {
+      fill: transparent;
+      stroke-width: 2;
     }
   }
 }
