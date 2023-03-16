@@ -58,7 +58,7 @@ function Confirm({ onClose, onConfirm, title, name }: IConfirmProps) {
       <div ref={modalContent} className="modal__content">
         <h2 className="modal__title">
           Вы действительно хотите удалить
-          {name === 'basket' ? ' все из карзины' : ` пиццу "${title}"`}?
+          {name === 'basket' ? ' все товары из карзины' : ` пиццу "${title}"`}?
         </h2>
         <hr />
         <div className="modal__controllers">
